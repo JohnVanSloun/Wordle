@@ -2,6 +2,41 @@ import words
 import display_utility
 
 
+def has_repeats(word):
+    """
+
+    Args:
+        word: A five letter string.
+
+    Returns: A boolean value, true if the word contains repeasts of letters and false otherwise.
+
+    """
+    return len(find_repeats()) > 0
+
+def find_repeats(word):
+    """
+
+    Args:
+        word: A five letter string.
+
+    Returns: A set of the repeated letters found withing the word.
+
+    """
+
+    repeats = set()
+    letter_count = {}
+
+    for letter in word:
+        if letter in letter_count.keys():
+            letter_count[letter] = letter_count[letter] + 1
+            if letter_count[letter] > 1:
+                repeats.add(letter)
+        else:
+            letter_count[letter] = 1
+
+    return repeats
+
+
 def check_word(secret, guess):
     """
 
@@ -14,6 +49,17 @@ def check_word(secret, guess):
              or grey indicating the letter not being present in the word.
 
     """
+
+    clues = ["", "", "", "", ""]
+
+    if has_repeats(guess):
+        # Using set difference to find words repeated in guess that are not repeated in secret
+        not_repeated_in_secret = find_repeats(guess) - find_repeats(secret)
+        pass
+    else:
+        pass
+
+
     pass
 
 
