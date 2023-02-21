@@ -52,15 +52,32 @@ def check_word(secret, guess):
 
     clues = ["", "", "", "", ""]
 
+    for i in range(len(guess)):
+        if guess[i] == secret[i]:
+            clues[i] = "green"
+
     if has_repeats(guess):
-        # Using set difference to find words repeated in guess that are not repeated in secret
         not_repeated_in_secret = find_repeats(guess) - find_repeats(secret)
-        pass
+
+        for j in range(len(guess)):
+            if (guess[j] in not_repeated_in_secret) and (guess[j] in secret) and (clues[j] != "green"):
+                if guess[j] not in secret[:j]:
+                    clues[j] = "yellow"
+                else:
+                    clues[j] = "grey"
+            else:
+                if (guess[j] in secret) and (guess[j] != secret[j]):
+                    clues[j] = "yellow"
+                elif guess[j] not in secret:
+                    clues[j] = "grey"
     else:
-        pass
+        for k in range(len(guess)):
+            if (guess[k] in secret) and (guess[k] != secret[k]):
+                clues[k] = "yellow"
+            elif guess[k] not in secret:
+                clues[k] = "grey"
 
-
-    pass
+    return clues
 
 
 def known_word(clues):
