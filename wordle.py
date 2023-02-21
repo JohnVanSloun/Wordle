@@ -2,18 +2,7 @@ import words
 import display_utility
 
 
-def has_repeats(word):
-    """
-
-    Args:
-        word: A five letter string.
-
-    Returns: A boolean value, true if the word contains repeasts of letters and false otherwise.
-
-    """
-    return len(find_repeats(word)) > 0
-
-def find_repeats(word):
+def find_num_repeats(word):
     """
 
     Args:
@@ -23,18 +12,51 @@ def find_repeats(word):
 
     """
 
-    repeats = set()
     letter_count = {}
 
     for letter in word:
         if letter in letter_count.keys():
             letter_count[letter] = letter_count[letter] + 1
-            if letter_count[letter] > 1:
-                repeats.add(letter)
         else:
             letter_count[letter] = 1
 
-    return repeats
+    return letter_count
+
+def has_repeats(word):
+    """
+
+    Args:
+        word: A five letter string.
+
+    Returns: A boolean value, true if the word contains repeats of letters and false otherwise.
+
+    """
+    dict = find_num_repeats(word)
+    for i in dict.keys():
+        if dict[i] > 1:
+            return True
+
+    return False
+
+def no_repeats_yellow_and_grey(secret, guess, index):
+    if (guess[index] in secret) and (guess[index] != secret[index]):
+        return "yellow"
+    else:
+        return "grey"
+
+def excess_repeats_yellow_and_grey(secret, guess, index, clues):
+    num_times_accounted = 1
+
+    for i in range(len(guess)):
+        if (i < index) and (guess[i] == guess[index]) and (clues[i] == "green" or clues[i] == "yellow"):
+            num_times_accounted = num_times_accounted + 1
+        elif (i > index) and (guess[i] == guess[index]) and (clues[i] == "green"):
+            num_times_accounted = num_times_accounted + 1
+
+    if num_times_accounted <= find_num_repeats(secret)[guess[index]]:
+        return "yellow"
+    else:
+        return "grey"
 
 
 def check_word(secret, guess):
@@ -56,26 +78,12 @@ def check_word(secret, guess):
         if guess[i] == secret[i]:
             clues[i] = "green"
 
-    if has_repeats(guess):
-        not_repeated_in_secret = find_repeats(guess) - find_repeats(secret)
 
-        for j in range(len(guess)):
-            if (guess[j] in not_repeated_in_secret) and (guess[j] in secret) and (clues[j] != "green"):
-                if guess[j] not in secret[:j]:
-                    clues[j] = "yellow"
-                else:
-                    clues[j] = "grey"
-            else:
-                if (guess[j] in secret) and (guess[j] != secret[j]):
-                    clues[j] = "yellow"
-                elif guess[j] not in secret:
-                    clues[j] = "grey"
-    else:
-        for k in range(len(guess)):
-            if (guess[k] in secret) and (guess[k] != secret[k]):
-                clues[k] = "yellow"
-            elif guess[k] not in secret:
-                clues[k] = "grey"
+    for j in range(len(guess)):
+        if (clues[j] != "green") and (find_num_repeats(guess)[guess[j]] > 1) and (guess[j] in secret):
+            clues[j] = excess_repeats_yellow_and_grey(secret, guess, j, clues)
+        elif clues[j] != "green":
+            clues[j] = no_repeats_yellow_and_grey(secret, guess, j)
 
     return clues
 
