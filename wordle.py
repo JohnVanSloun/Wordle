@@ -11,7 +11,7 @@ def has_repeats(word):
     Returns: A boolean value, true if the word contains repeasts of letters and false otherwise.
 
     """
-    return len(find_repeats()) > 0
+    return len(find_repeats(word)) > 0
 
 def find_repeats(word):
     """
