@@ -115,11 +115,11 @@ def check_word(secret, guess):
     return clues
 
 
-def known_word(clues):
+def known_word(clues_list):
     """
 
     Args:
-        clues: A list of tuples that contain the current guesses and the subsequent clue given to each guess.
+        clues_list: A list of tuples that contain the current guesses and the subsequent clue given to each guess.
 
     Returns: A string indicating the letters that are known to be in the right position.
              Where the letters are not known is represented with a _.
@@ -129,11 +129,11 @@ def known_word(clues):
     pass
 
 
-def no_letters(clues):
+def no_letters(clues_list):
     """
 
     Args:
-        clues: A list of tuples that contain the current guesses and the subsequent clue given to each guess.
+        clues_list: A list of tuples that contain the current guesses and the subsequent clue given to each guess.
 
     Returns: A string containing letters that have been guessed and are known to not be in the string.
 
@@ -141,11 +141,11 @@ def no_letters(clues):
     pass
 
 
-def yes_letters(clues):
+def yes_letters(clues_list):
     """
 
     Args:
-        clues: A list of tuples that contain the current guesses and the subsequent clue given to each guess.
+        clues_list: A list of tuples that contain the current guesses and the subsequent clue given to each guess.
 
     Returns: A string containing letters that have been confirmed to be in the secret word
              regardless of whether they were in the right position.
