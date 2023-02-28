@@ -8,7 +8,8 @@ def find_num_repeats(word):
     Args:
         word: A five letter string.
 
-    Returns: A set of the repeated letters found withing the word.
+    Returns: A dictionary where the keys are the letters present in the word and the value is the number of times that
+             letter appears in the word.
 
     """
 
@@ -39,12 +40,38 @@ def has_repeats(word):
     return False
 
 def no_repeats_yellow_and_grey(secret, guess, index):
+    """
+
+    Args:
+        secret: 5-letter secret wordle word
+        guess: 5-letter word guess from user
+        index: The index of the letter of the guess currently being checked.
+
+    Returns: returns yellow if the letter is present in the secret word but not at the index being checked and
+             grey if the letter is not present in the secret word.
+
+    """
     if (guess[index] in secret) and (guess[index] != secret[index]):
         return "yellow"
     else:
         return "grey"
 
 def excess_repeats_yellow_and_grey(secret, guess, index, clues):
+    """
+
+    Args:
+        secret: 5-letter secret wordle word
+        guess: 5-letter word guess from user
+        index: The index of the letter of the guess currently being checked.
+        clues: A list of strings (green, yellow, grey, or an empty string) indicating the letter in the guess is
+               in the same place as in the secret word, the letter at the index is not in the same place as in the
+               secret but is in the secret word, the letter at the index is not in the secret word,
+               or the nature of the letter is unknown.
+
+    Returns: Yellow if the letter is present in the secret word but not in the right spot and is not an excess guess or
+             grey if the letter is not in the secret word or is an excess guess.
+
+    """
     num_times_accounted = 1
 
     for i in range(len(guess)):

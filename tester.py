@@ -20,7 +20,8 @@ print(wordle.no_repeats_yellow_and_grey("stork", "steam", 2))
 
 # excess_repeats_yellow_and_grey tests
 
-print(wordle.excess_repeats_yellow_and_grey("cooks", "cooko", 2))
+clues = ["green", "green", "green", "", ""]
+print(wordle.excess_repeats_yellow_and_grey("cooks", "cooko", 2, clues))
 
 # check_word tests
 
