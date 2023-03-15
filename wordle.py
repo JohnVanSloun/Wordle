@@ -126,20 +126,15 @@ def known_word(clues_list):
              Where the letter is known is represented with the letter.
 
     """
-    pass
 
+    known_word_chars = ["_", "_", "_", "_", "_"]
 
-def no_letters(clues_list):
-    """
+    for i in range(len(clues_list)):
+        for j in range(5):
+            if clues_list[i][1][j] == "green":
+                known_word_chars[j] = clues_list[i][0][j]
 
-    Args:
-        clues_list: A list of tuples that contain the current guesses and the subsequent clue given to each guess.
-
-    Returns: A string containing letters that have been guessed and are known to not be in the string.
-
-    """
-    pass
-
+    return known_word_chars
 
 def yes_letters(clues_list):
     """
@@ -151,7 +146,47 @@ def yes_letters(clues_list):
              regardless of whether they were in the right position.
 
     """
-    pass
+    yes_letters_set = set()
+
+    for i in range(len(clues_list)):
+        for j in range(5):
+            if clues_list[i][1][j] == "green" or clues_list[i][1][j] == "yellow":
+                yes_letters_set.add(clues_list[i][0][j])
+
+    yes_letters_list = list(yes_letters_set)
+
+    for k in range(len(yes_letters_list)):
+        yes_letters_list[k] = yes_letters_list[k].upper()
+
+    yes_letters_list.sort()
+
+    return yes_letters_list
+
+def no_letters(clues_list):
+    """
+
+    Args:
+        clues_list: A list of tuples that contain the current guesses and the subsequent clue given to each guess.
+
+    Returns: A string containing letters that have been guessed and are known to not be in the string.
+
+    """
+    yes_letters_list = yes_letters(clues_list)
+    no_letters_set = set()
+
+    for i in range(len(clues_list)):
+        for j in range(5):
+            if clues_list[i][1][j] == "grey" and (clues_list[i][0][j].upper() not in yes_letters_list):
+                no_letters_set.add(clues_list[i][0][j])
+
+    no_letters_list = list(no_letters_set)
+
+    for k in range(len(no_letters_list)):
+        no_letters_list[k] = no_letters_list[k].upper()
+
+    no_letters_list.sort()
+
+    return no_letters_list
 
 
 if __name__ == "__main__":
