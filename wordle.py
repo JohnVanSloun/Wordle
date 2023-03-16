@@ -211,13 +211,16 @@ if __name__ == "__main__":
 
         clues_list.append((guess, check_word(secret_word, guess)))
 
-        for j in range(len(clues_list[i][1])):
-            if clues_list[i][1][j] == "green":
-                display_utility.green(guess[j].upper())
-            elif clues_list[i][1][j] == "yellow":
-                display_utility.yellow(guess[j].upper())
-            elif clues_list[i][1][j] == "grey":
-                display_utility.grey(guess[j].upper())
+        for clue in clues_list:
+            for j in range(len(clue[1])):
+                if clue[1][j] == "green":
+                    display_utility.green(clue[0][j].upper())
+                elif clue[1][j] == "yellow":
+                    display_utility.yellow(clue[0][j].upper())
+                elif clue[1][j] == "grey":
+                    display_utility.grey(clue[0][j].upper())
+
+            print()
 
         print()
 
