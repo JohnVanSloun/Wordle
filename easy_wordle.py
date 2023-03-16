@@ -1,6 +1,12 @@
+# CSCI 1913
+# 03/17/23
+# Author: John Van Sloun
+
+import random
 import display_utility
-import words
+from words import words
 from wordle import check_word
+
 
 def filter_word_list(words, clues):
     """
@@ -29,4 +35,41 @@ def filter_word_list(words, clues):
 
 
 if __name__ == "__main__":
-    pass
+
+    secret_word = words[random.randint(0, len(words))]
+    clues_list = []
+
+    for i in range(6):
+        guess = input("> ")
+        while (guess not in words) or (len(guess) != 5):
+            guess = input("> ")
+
+        if guess == secret_word:
+            break
+
+        guess = guess.upper()
+        clues_list.append((guess, check_word(secret_word, guess)))
+
+        for clue in clues_list:
+            for j in range(len(clue[1])):
+                if clue[1][j] == "green":
+                    display_utility.green(clue[0][j].upper())
+                elif clue[1][j] == "yellow":
+                    display_utility.yellow(clue[0][j].upper())
+                elif clue[1][j] == "grey":
+                    display_utility.grey(clue[0][j].upper())
+
+            print()
+
+        possible_words = filter_word_list(words, clues_list)
+
+        print(str(len(possible_words)) + " words possible:")
+
+        if len(possible_words) >= 5:
+            for m in range(5):
+                print(possible_words[random.randint(0, len(possible_words))])
+        else:
+            for n in range(len(possible_words)):
+                print(possible_words[n])
+
+    print(secret_word.upper())
