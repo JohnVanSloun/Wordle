@@ -1,6 +1,9 @@
-import words
+# CSCI 1913
+# 03/17/23
+# Author: John Van Sloun
+import random
+from words import words
 import display_utility
-
 
 def find_num_repeats(word):
     """
@@ -132,7 +135,7 @@ def known_word(clues_list):
     for i in range(len(clues_list)):
         for j in range(5):
             if clues_list[i][1][j] == "green":
-                known_word_chars[j] = clues_list[i][0][j]
+                known_word_chars[j] = clues_list[i][0][j].upper()
 
     return known_word_chars
 
@@ -190,4 +193,37 @@ def no_letters(clues_list):
 
 
 if __name__ == "__main__":
-    pass
+
+    secret_word = words[random.randint(0, len(words))]
+    first_clue = check_word(secret_word, "")
+    clues_list = []
+
+    print("Known: _____")
+    print("Green/Yellow Letters:")
+    print("Grey Letters:")
+    for i in range(6):
+        guess = input("> ")
+        while (guess not in words) or (len(guess) != 5):
+            guess = input("> ")
+
+        if (guess == secret_word):
+            break
+
+        clues_list.append((guess, check_word(secret_word, guess)))
+
+        for j in range(len(clues_list[i][1])):
+            if clues_list[i][1][j] == "green":
+                display_utility.green(guess[j].upper())
+            elif clues_list[i][1][j] == "yellow":
+                display_utility.yellow(guess[j].upper())
+            elif clues_list[i][1][j] == "grey":
+                display_utility.grey(guess[j].upper())
+
+        print()
+
+        print("Known: " + "".join(known_word(clues_list)))
+        print("Green/Yellow Letters: " + "".join(yes_letters(clues_list)))
+        print("Grey Letters: " + "".join(no_letters(clues_list)))
+
+    print(secret_word.upper())
+
