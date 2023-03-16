@@ -15,9 +15,12 @@ def filter_word_list(words, clues):
 
     potential_words = []
 
+    if len(clues) == 0:
+        return words.copy()
+
     for word in words:
         for i in range(len(clues)):
-            if check_word(word, clues[i][0]) != clues[i][1]:
+            if check_word(word.upper(), clues[i][0]) != clues[i][1]:
                 break
             elif i == (len(clues) - 1):
                 potential_words.append(word)
