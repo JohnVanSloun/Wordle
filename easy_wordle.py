@@ -26,7 +26,7 @@ def filter_word_list(words, clues):
 
     for word in words:
         for i in range(len(clues)):
-            if check_word(word.upper(), clues[i][0]) != clues[i][1]:
+            if check_word(word, clues[i][0].lower()) != clues[i][1]:
                 break
             elif i == (len(clues) - 1):
                 potential_words.append(word)
@@ -47,7 +47,6 @@ if __name__ == "__main__":
         if guess == secret_word:
             break
 
-        guess = guess.upper()
         clues_list.append((guess, check_word(secret_word, guess)))
 
         for clue in clues_list:
