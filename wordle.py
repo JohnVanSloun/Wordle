@@ -206,7 +206,7 @@ if __name__ == "__main__":
         while (guess not in words) or (len(guess) != 5):
             guess = input("> ")
 
-        if (guess == secret_word):
+        if guess == secret_word:
             break
 
         clues_list.append((guess, check_word(secret_word, guess)))

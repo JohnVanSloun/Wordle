@@ -1,3 +1,7 @@
+# CSCI 1913
+# 03/17/23
+# Author: John Van Sloun
+
 import easy_wordle
 import wordle
 from words import words
