@@ -194,7 +194,7 @@ def no_letters(clues_list):
 
 if __name__ == "__main__":
 
-    secret_word = words[random.randint(0, len(words))]
+    secret_word = words[random.randint(0, len(words)-1)]
     first_clue = check_word(secret_word, "")
     clues_list = []
 

@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
         if len(possible_words) >= 5:
             for m in range(5):
-                print(possible_words[random.randint(0, len(possible_words))])
+                print(possible_words[random.randint(0, len(possible_words)-1)])
         else:
             for n in range(len(possible_words)):
                 print(possible_words[n])
