@@ -5,6 +5,7 @@ import random
 from words import words
 import display_utility
 
+
 def find_num_repeats(word):
     """
 
@@ -26,6 +27,7 @@ def find_num_repeats(word):
 
     return letter_count
 
+
 def has_repeats(word):
     """
 
@@ -41,6 +43,7 @@ def has_repeats(word):
             return True
 
     return False
+
 
 def no_repeats_yellow_and_grey(secret, guess, index):
     """
@@ -58,6 +61,7 @@ def no_repeats_yellow_and_grey(secret, guess, index):
         return "yellow"
     else:
         return "grey"
+
 
 def excess_repeats_yellow_and_grey(secret, guess, index, clues):
     """
@@ -108,7 +112,6 @@ def check_word(secret, guess):
         if guess[i] == secret[i]:
             clues[i] = "green"
 
-
     for j in range(len(guess)):
         if (clues[j] != "green") and (find_num_repeats(guess)[guess[j]] > 1) and (guess[j] in secret):
             clues[j] = excess_repeats_yellow_and_grey(secret, guess, j, clues)
@@ -139,6 +142,7 @@ def known_word(clues_list):
 
     return known_word_chars
 
+
 def yes_letters(clues_list):
     """
 
@@ -164,6 +168,7 @@ def yes_letters(clues_list):
     yes_letters_list.sort()
 
     return yes_letters_list
+
 
 def no_letters(clues_list):
     """
@@ -194,7 +199,7 @@ def no_letters(clues_list):
 
 if __name__ == "__main__":
 
-    secret_word = words[random.randint(0, len(words)-1)]
+    secret_word = words[random.randint(0, len(words) - 1)]
     first_clue = check_word(secret_word, "")
     clues_list = []
 
@@ -205,9 +210,6 @@ if __name__ == "__main__":
         guess = input("> ")
         while (guess not in words) or (len(guess) != 5):
             guess = input("> ")
-
-        if guess == secret_word:
-            break
 
         clues_list.append((guess, check_word(secret_word, guess)))
 
@@ -222,11 +224,11 @@ if __name__ == "__main__":
 
             print()
 
-        print()
+        if guess == secret_word or i == 5:
+            break
 
         print("Known: " + "".join(known_word(clues_list)))
         print("Green/Yellow Letters: " + "".join(yes_letters(clues_list)))
         print("Grey Letters: " + "".join(no_letters(clues_list)))
 
-    print(secret_word.upper())
-
+    print("Answer: " + secret_word.upper())
